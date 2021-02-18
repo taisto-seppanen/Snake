@@ -2,7 +2,7 @@ const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
 const ground = new Image();
-ground.src= "ground.jpg";
+ground.src= "ground.png";
 
 const foodImg = new Image();
 foodImg.src= "food.png";
@@ -84,7 +84,7 @@ for ( let i = 0; i < snake.length; i++)  {
 
 ctx.fillStyle = "red";
 ctx.font = "30px arial";    
-ctx.fillText(score, box, box) 
+ctx.fillText(score, 100, 27) 
 
 
 let snakeY = snake[0].y;
@@ -101,7 +101,7 @@ if (snakeX == food.x && snakeY == food.y)   {
     snake.pop();    }
 
     // Обрабатываем столкновение с стеной
-    if(snakeX > box*18 || snakeX == 0 || snakeY > box*18 || snakeY == 0)
+    if(snakeX > box*19 || snakeX < 0 || snakeY > box*19 || snakeY == 0)
     {
         lose();
 
