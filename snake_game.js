@@ -16,14 +16,13 @@ let score = 0;
 
 let food = {
     x: Math.floor(Math.random() * 18) * box,
-    y: Math.floor(Math.random() * 18) * box,
+    y: Math.floor(Math.random() * 18  + 1 ) * box,
 };
 
 
 let snake = [];
-
 snake[0] = {
-    x: 10 * box,
+    x: 10 * box,    
     y: 10 * box,
 };
 
@@ -35,42 +34,60 @@ let dir;
 function direction(event)    {
     if (event.keyCode == 37 && dir != "right")    {
         dir = "left";
-        console.log(dir);
     }
     else if (event.keyCode == 38 && dir != "down")    {
         dir = "up";
-        console.log(dir);
 
     }
     else if (event.keyCode == 39 && dir != "left")    {
         dir = "right";
-        console.log(dir);
 
     }
     else if (event.keyCode == 40 && dir != "up")    {
         dir = "down";
-        console.log(dir);
 
     }
 }
 
+
 // проверяет не съеден ли хвост
 function eatTail(head, arr)  {
     for ( let i = 0; i < arr.length; i++)   {
-        if ( head.x == arr[i].x || head.y == arr[i].y )
+        if ( head.x == arr[i].x && head.y == arr[i].y )
         lose();
         }
     }
-// обработка события проигрыша 
 
-    function lose() {
+
+// обработка события проигрыша 
+function lose() {
+        dieSound.play()
         clearInterval(game);
         ctx.fillStyle = "red";
         ctx.font = "50px Impact";    
         ctx.fillText("YOU LOSE", 200, 200)
-        ctx.drawImage(loseImg, 0, 0);
-        
+        ctx.drawImage(loseImg, 0, 0);   
     }
+
+
+
+    // подключаем озвучку 
+    function sound(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+          this.play = function(){
+            this.sound.play();
+        }
+          this.stop = function(){
+            this.sound.pause();
+        }
+      }
+      const eatSound = new sound('./EatSound.ogg');
+      const dieSound = new sound('./DieSound.ogg');
 
 function drawGame () {
 ctx.drawImage(ground, 0, 0);
@@ -90,8 +107,11 @@ ctx.fillText(score, 100, 27)
 let snakeY = snake[0].y;
 let snakeX = snake[0].x;
 
+console.log("food.x = ", food.x, "food.y = ", food.y)
+
 // обрабатываем поедание яблок
 if (snakeX == food.x && snakeY == food.y)   {
+    eatSound.play()
     score++;
     food = {
         x: Math.floor(Math.random() * 6 + 1) * box,
@@ -100,7 +120,7 @@ if (snakeX == food.x && snakeY == food.y)   {
 } else {
     snake.pop();    }
 
-    // Обрабатываем столкновение с стеной
+// Обрабатываем столкновение с стеной
     if(snakeX > box*19 || snakeX < 0 || snakeY > box*19 || snakeY == 0)
     {
         lose();
@@ -117,6 +137,7 @@ let newHead = {
     x: snakeX,
     y: snakeY,
 };
+eatTail(newHead, snake);
 
 snake.unshift(newHead); 
 
