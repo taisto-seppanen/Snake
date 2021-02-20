@@ -1,0 +1,31 @@
+body {
+  background-image: url(./background.jpg);
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  background-position: center;
+}
+
+.game {
+  margin-top: 5%;
+}
+
+.refButton {
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  margin: 2px 0;
+  border: solid 1px transparent;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  color: balck;
+  background-color: red;
+}
+
+.refButton:hover {
+  color: #9555af;
+  border-color: currentColor;
+  background-color: white;
+  transition: 0.5s linear;
+}

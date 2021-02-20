@@ -6,20 +6,20 @@
   <title>Snake game</title>
   <style>
   </style>
-
+  <link rel="stylesheet" href="./index.css">
 </head>
 
 <body>
   <!-- Содержимое страницы -->
-  <div align="center" >
-    <div>
-  <canvas id="game"  width="600" height="600"></canvas>
-</div>
-<di>  <input type="button" value="Refresh " onClick="window.location.reload();">
-</di>
-</di>
-  <script src="./snake_game.js"></script>
+  <div  class="wrapper" align="center" >
 
+    <div class=game>
+      <canvas id="game"  width="600" height="600"></canvas>
+      <div>      <input class="refButton" type="button" value="Restart!" onClick="window.location.reload();"></div>
+      </div>
+    </div>
+
+  <script src="./snake_game.js"></script>
 </body>
 
 </html> 
